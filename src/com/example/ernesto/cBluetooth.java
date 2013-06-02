@@ -26,13 +26,14 @@ public class cBluetooth
 	private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
 	private final Handler mHandler;
+
 	public final static int BL_NOT_AVAILABLE = 1;
 	public final static int BL_INCORRECT_ADDRESS = 2;
 	public final static int BL_REQUEST_ENABLE = 3;
 	public final static int BL_SOCKET_FAILED = 4;
 	public final static int RECIEVE_MESSAGE = 5;
 
-	
+
 	cBluetooth(Context context, Handler handler)
 	{
 		btAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -44,7 +45,7 @@ public class cBluetooth
 		}
 	}
 
-	
+
 	public void checkBTState()
 	{
 		if (btAdapter == null)
@@ -64,7 +65,7 @@ public class cBluetooth
 		}
 	}
 
-	
+
 	private BluetoothSocket createBluetoothSocket(BluetoothDevice device) throws IOException
 	{
 		if (Build.VERSION.SDK_INT >= 10)
@@ -83,7 +84,7 @@ public class cBluetooth
 		return  device.createRfcommSocketToServiceRecord(MY_UUID);
 	}
 
-	
+
 	public boolean BT_Connect(String address, boolean listen_InStream)
 	{   	
 		Log.d("BT", "...On Resume...");  
@@ -153,7 +154,7 @@ public class cBluetooth
 		return connected;
 	}
 
-	
+
 	public void BT_onPause()
 	{
 		Log.d("BT", "...On Pause...");
@@ -185,8 +186,8 @@ public class cBluetooth
 			}
 		}
 	}
-	
-	
+
+
 	public void sendData(String message)
 	{
 		byte[] msgBuffer = message.getBytes();
@@ -211,13 +212,13 @@ public class cBluetooth
 			Log.e("BT", "Error Send data: outStream is Null");
 		}
 	}
-	
-	
+
+
 	private class ConnectedThread extends Thread
 	{
 		private final InputStream mmInStream;
-		
-		
+
+
 		public ConnectedThread()
 		{
 			InputStream tmpIn = null;
@@ -233,8 +234,8 @@ public class cBluetooth
 
 			mmInStream = tmpIn;
 		}
-		
-		
+
+
 		public void run()
 		{
 			byte[] buffer = new byte[256];
